@@ -1,4 +1,7 @@
 #!/bin/bash
+# Jacob Eaton - Dec 1st 2020
+# Based on a script by James Chambers: https://github.com/TheRemote/RaspberryPiMinecraft
+# Terraria Server Start Script
 
 # Check if server is already running
 if screen -list | grep -q "terraria"; then
