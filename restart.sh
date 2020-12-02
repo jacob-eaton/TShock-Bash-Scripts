@@ -1,7 +1,7 @@
 #!/bin/bash
 # Jacob Eaton - Dec 1st 2020
 # Based on a script by James Chambers: https://github.com/TheRemote/RaspberryPiMinecraft
-# Terraria Server Stop Script
+# Terraria Server Restart Script
 
 # Check if server is running
 if ! screen -list | grep -q "terraria"; then
