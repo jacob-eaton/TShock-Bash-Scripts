@@ -24,7 +24,7 @@ while [ -z "$DefaultRoute" ]; do
 done
 
 # Switch to server directory
-cd /home/nuc/terraria/
+cd dirname/terraria/
 
 # Start the server
 echo "Starting Terraria server.  To view window type screen -r terraria."
