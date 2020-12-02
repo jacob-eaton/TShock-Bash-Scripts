@@ -68,4 +68,6 @@ fi
 
 echo "Terraria server stopped."
 
+cd dirname/terraria
+
 ./start.sh
