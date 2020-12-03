@@ -35,12 +35,12 @@ Download_Scripts() {
   sed -i "s:dirname:$DirName:g" start.sh
 
   # Download stop.sh from repository
-  echo "Grabbing stop.sh from repository..."
+  Print_Style "Grabbing stop.sh from repository..." "$YELLOW"
   wget -O stop.sh https://raw.githubusercontent.com/jacob-eaton/TShock-Bash-Scripts/main/stop.sh
   chmod +x stop.sh
 
   # Download restart.sh from repository
-  echo "Grabbing restart.sh from repository..."
+  Print_Style "Grabbing restart.sh from repository..." "$YELLOW"
   wget -O restart.sh https://raw.githubusercontent.com/jacob-eaton/TShock-Bash-Scripts/main/restart.sh
   chmod +x restart.sh
   sed -i "s:dirname:$DirName:g" restart.sh
@@ -125,7 +125,6 @@ if [ -d "terraria" ]; then
   Update_Service
 
   Print_Style "Terraria installation scripts have been updated to the latest version!" "$GREEN"
-  exit 0
 fi
 
 # Create server directory
@@ -166,7 +165,7 @@ done
 
 if [[ $StartChecks == 30 ]]; then
   Print_Style "Server has failed to start after 30 seconds." "$RED"
-  exit 1
+  exit 0
 fi
 
 # Look for existing world files
