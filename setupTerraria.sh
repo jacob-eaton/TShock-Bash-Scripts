@@ -159,22 +159,27 @@ else # If world files exist
   done
   printf "%-10s %s\n" "n" "New World"
   printf "Choose world: "
-  read selectWorld
-  if [ "$selectWorld" != "${selectWorld#[Nn]}" ]; then
+  read worldSelect
+  sed -i "s:worldSelect:$worldSelect:g" start.sh
+  if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
     create_world
   fi
   printf "\nMax players (press enter for 16): "
-  read players
+  read maxPlayers
+  sed -i "s:maxPlayers:$maxPlayers:g" start.sh
   printf "\nServer port (press enter for 7777): "
-  read port
+  read serverPort
+  sed -i "s:serverPort:$serverPort:g" start.sh
   printf "\nAutomatically forward port? (y/n): "
   read autoForward
+  sed -i "s:autoForward:$autoForward:g" start.sh
   printf "\nServer password (press enter for none): "
-  read password
+  read serverPassword
+  sed -i "s:serverPassword:$serverPassword:g" start.sh
 fi
 
 # Finished!
-Print_Style "Setup is complete.  Starting Terraria server..." "$GREEN"
+Print_Style "Setup is complete. Starting Terraria server..." "$GREEN"
 sudo systemctl start terraria.service
 
 # Wait up to 30 seconds for server to start
