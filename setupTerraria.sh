@@ -82,7 +82,12 @@ create_world() {
   printf "\nEnter world name: "
   read worldName
   printf "\nEnter Seed (Leave blank for random): "
-  read seed
+  read answer
+  if [ -z $answer ]; then
+    seed = ""
+  else
+    seed = $answer
+  fi
 }
 #################################################################################################
 
@@ -165,16 +170,31 @@ else # If world files exist
     create_world
   fi
   printf "\nMax players (press enter for 16): "
-  read maxPlayers
+  read answer 
+  if [ -z $answer ]; then
+    maxPlayers = ""
+  else
+    maxPlayers = $answer
+  fi
   sed -i "s:maxPlayers:$maxPlayers:g" start.sh
   printf "\nServer port (press enter for 7777): "
-  read serverPort
+  read answer
+  if [ -z $answer ]; then
+    serverPort = ""
+  else
+    serverPort = $answer
+  fi
   sed -i "s:serverPort:$serverPort:g" start.sh
   printf "\nAutomatically forward port? (y/n): "
   read autoForward
   sed -i "s:autoForward:$autoForward:g" start.sh
   printf "\nServer password (press enter for none): "
-  read serverPassword
+  read answer
+  if [ -z $answer ]; then
+    serverPassword = ""
+  else
+    serverPassword = $answer
+  fi
   sed -i "s:serverPassword:$serverPassword:g" start.sh
 fi
 
