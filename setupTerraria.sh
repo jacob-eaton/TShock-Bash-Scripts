@@ -28,6 +28,9 @@ Print_Style() {
 
 # Downloads all scripts
 Download_Scripts() {
+  # Remove existing scripts
+  rm terraria/start.sh terraria/stop.sh terraria/restart.sh
+
   # Download start.sh from repository
   Print_Style "Grabbing start.sh from repository..." "$YELLOW"
   wget -O start.sh https://raw.githubusercontent.com/jacob-eaton/TShock-Bash-Scripts/main/start.sh
@@ -110,23 +113,6 @@ sudo apt-get install mono-complete -y
 sudo apt-get install screen -y
 sudo apt-get install unzip -y
 
-# Check to see if Terraria directory already exists, if it does then reconfigure existing scripts
-if [ -d "terraria" ]; then
-  Print_Style "Directory terraria already exists!  Updating scripts and configuring service ..." "$YELLOW"
-  # Get Home directory path and username
-  cd terraria
-  DirName=$(readlink -e ~)
-  UserName=$(whoami)
-
-  # Update Terraria server scripts
-  Download_Scripts
-
-  # Service configuration
-  Update_Service
-
-  Print_Style "Terraria installation scripts have been updated to the latest version!" "$GREEN"
-fi
-
 # Create server directory
 Print_Style "Creating terraria server directory..." "$YELLOW"
 cd ~
@@ -144,7 +130,7 @@ unzip tshock.zip
 rm tshock.zip
 
 # Download Terraria server scripts
-Download_scripts
+Download_Scripts
 
 # Service configuration
 Update_Service
