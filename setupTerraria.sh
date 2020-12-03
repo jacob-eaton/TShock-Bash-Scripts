@@ -61,6 +61,29 @@ Update_Service() {
   fi
 }
 
+# Gets variables for creating a new world
+create_world() {
+  printf "\n%-10s %s\n" "1" "Small"
+  printf "%-10s %s\n" "2" "Medium"
+  printf "%-10s %s\n" "3" "Large"
+  echo -n "Choose size: "
+  read size
+  printf "\n%-10s %s\n" "1" "Classic"
+  printf "%-10s %s\n" "2" "Expert"
+  printf "%-10s %s\n" "3" "Master"
+  printf "%-10s %s\n" "4" "Journey"
+  echo -n "Choose difficulty: "
+  read difficulty
+  printf "\n%-10s %s\n" "1" "Random"
+  printf "%-10s %s\n" "2" "Corrupt"
+  printf "%-10s %s\n" "3" "Crimson"
+  printf "Choose world evil: "
+  read worldEvil
+  printf "\nEnter world name: "
+  read worldName
+  printf "\nEnter Seed (Leave blank for random): "
+  read seed
+}
 #################################################################################################
 
 Print_Style "TShock Server installation script by Jacob Eaton December 1st 2020" "$MAGENTA"
@@ -116,6 +139,39 @@ Download_scripts
 
 # Service configuration
 Update_Service
+
+# Look for existing world files
+{
+  cd ~/.local/share/Terraria/Worlds/
+  worldFiles=`find ./*.wld -maxdepth 1 -type f -not -path '*/\.*' | sed 's/^\.\///g' | sort`
+} &> /dev/null
+
+if [ -z "$worldFiles" ]; then # If no worlds files exist
+  echo "No worlds found, creating one."
+  create_world
+else # If world files exist
+  cnt=0
+  for eachFile in $worldFiles
+  do
+    #echo $eachfile " - " $cnt
+    printf "%-10s %s\n" $cnt $eachFile
+    let "cnt+=1"
+  done
+  printf "%-10s %s\n" "n" "New World"
+  printf "Choose world: "
+  read selectWorld
+  if [ "$selectWorld" != "${selectWorld#[Nn]}" ]; then
+    create_world
+  fi
+  printf "\nMax players (press enter for 16): "
+  read players
+  printf "\nServer port (press enter for 7777): "
+  read port
+  printf "\nAutomatically forward port? (y/n): "
+  read autoForward
+  printf "\nServer password (press enter for none): "
+  read password
+fi
 
 # Finished!
 Print_Style "Setup is complete.  Starting Terraria server..." "$GREEN"
