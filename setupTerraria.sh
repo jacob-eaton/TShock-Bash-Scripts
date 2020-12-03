@@ -63,22 +63,26 @@ Update_Service() {
 
 # Gets variables for creating a new world
 create_world() {
+  screen -Rd terraria -X stuff "n^M"
   printf "\n%-10s %s\n" "1" "Small"
   printf "%-10s %s\n" "2" "Medium"
   printf "%-10s %s\n" "3" "Large"
   echo -n "Choose size: "
   read size
+  screen -Rd terraria -X stuff "$size^M"
   printf "\n%-10s %s\n" "1" "Classic"
   printf "%-10s %s\n" "2" "Expert"
   printf "%-10s %s\n" "3" "Master"
   printf "%-10s %s\n" "4" "Journey"
   echo -n "Choose difficulty: "
   read difficulty
+  screen -Rd terraria -X stuff "$difficulty^M"
   printf "\n%-10s %s\n" "1" "Random"
   printf "%-10s %s\n" "2" "Corrupt"
   printf "%-10s %s\n" "3" "Crimson"
   printf "Choose world evil: "
   read worldEvil
+  screen -Rd terraria -X stuff "worldEvil^M"
   printf "\nEnter world name: "
   read worldName
   printf "\nEnter Seed (Leave blank for random): "
@@ -88,6 +92,7 @@ create_world() {
   else
     seed = $answer
   fi
+  screen -Rd terraria -X stuff "$seed^M"
 }
 #################################################################################################
 
@@ -145,6 +150,25 @@ Download_scripts
 # Service configuration
 Update_Service
 
+# Start the server
+screen -dmS terraria mono --server --gc=sgen -O=all TerrariaServer.exe
+
+# Wait up to 30 seconds for server to start
+StartChecks=0
+while [ $StartChecks -lt 30 ]; do
+  if screen -list | grep -q "terraria"; then
+    screen -r terraria
+    break
+  fi
+  sleep 1
+  StartChecks=$((StartChecks + 1))
+done
+
+if [[ $StartChecks == 30 ]]; then
+  Print_Style "Server has failed to start after 30 seconds." "$RED"
+  exit 1
+fi
+
 # Look for existing world files
 {
   cd ~/.local/share/Terraria/Worlds/
@@ -168,6 +192,8 @@ else # If world files exist
   sed -i "s:worldSelect:$worldSelect:g" start.sh
   if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
     create_world
+  else
+    screen -Rd terraria -X stuff "$worldSelect^M"
   fi
   printf "\nMax players (press enter for 16): "
   read answer 
@@ -177,6 +203,7 @@ else # If world files exist
     maxPlayers = $answer
   fi
   sed -i "s:maxPlayers:$maxPlayers:g" start.sh
+  screen -Rd terraria -X stuff "$maxPlayers^M"
   printf "\nServer port (press enter for 7777): "
   read answer
   if [ -z $answer ]; then
@@ -185,9 +212,11 @@ else # If world files exist
     serverPort = $answer
   fi
   sed -i "s:serverPort:$serverPort:g" start.sh
+  screen -Rd terraria -X stuff "$serverPort^M"
   printf "\nAutomatically forward port? (y/n): "
   read autoForward
   sed -i "s:autoForward:$autoForward:g" start.sh
+  screen -Rd terraria -X stuff "$autoForward^M"
   printf "\nServer password (press enter for none): "
   read answer
   if [ -z $answer ]; then
@@ -196,25 +225,10 @@ else # If world files exist
     serverPassword = $answer
   fi
   sed -i "s:serverPassword:$serverPassword:g" start.sh
+  screen -Rd terraria -X stuff "serverPassword^M"
 fi
 
 # Finished!
-Print_Style "Setup is complete. Starting Terraria server..." "$GREEN"
-sudo systemctl start terraria.service
+Print_Style "Setup is complete. Going to Terraria server..." "$GREEN"
+screen -r terraria
 
-# Wait up to 30 seconds for server to start
-StartChecks=0
-while [ $StartChecks -lt 30 ]; do
-  if screen -list | grep -q "terraria"; then
-    screen -r terraria
-    break
-  fi
-  sleep 1
-  StartChecks=$((StartChecks + 1))
-done
-
-if [[ $StartChecks == 30 ]]; then
-  Print_Style "Server has failed to start after 30 seconds." "$RED"
-else
-  screen -r terraria
-fi
