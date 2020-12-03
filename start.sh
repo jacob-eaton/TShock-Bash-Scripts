@@ -32,19 +32,19 @@ echo "To minimize the window and let the server run in the background, press Ctr
 screen -dmS terraria mono --server --gc=sgen -O=all TerrariaServer.exe
 
 # Choose World
-screen -Rd terraria -X stuff "1^M"
+screen -Rd terraria -X stuff "worldSelect^M"
 
 # Max Players
-screen -Rd terraria -X stuff "10^M"
+screen -Rd terraria -X stuff "maxPlayers^M"
 
 # Server Port
-screen -Rd terraria -X stuff "^M"
+screen -Rd terraria -X stuff "serverPort^M"
 
 # Automatically Forward Port
-screen -Rd terraria -X stuff "y^M"
+screen -Rd terraria -X stuff "autoForward^M"
 
 # Server Password
-screen -Rd terraria -X stuff "^M"
+screen -Rd terraria -X stuff "serverPassword^M"
 
 
 
