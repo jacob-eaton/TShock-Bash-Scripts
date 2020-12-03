@@ -156,7 +156,6 @@ screen -dmS terraria mono --server --gc=sgen -O=all TerrariaServer.exe
 StartChecks=0
 while [ $StartChecks -lt 30 ]; do
   if screen -list | grep -q "terraria"; then
-    screen -r terraria
     break
   fi
   sleep 1
