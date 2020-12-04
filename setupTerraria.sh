@@ -85,10 +85,13 @@ create_world() {
   printf "\e[36m%-10s %s\n\e[39m" "3" "Crimson"
   echo -n "Choose world evil: "
   read worldEvil
-  screen -Rd terraria -X stuff "worldEvil^M"
-  echo -n "\nEnter world name: "
+  screen -Rd terraria -X stuff "$worldEvil^M"
+  echo ""
+  echo -n "Enter world name: "
   read worldName
-  echo -n "\nEnter Seed (Leave blank for random): "
+  screen -Rd terraria -X stuff "$worldName^M"
+  echo ""
+  echo -n "Enter Seed (Leave blank for random): "
   read answer
   if [ -z $answer ]; then
     seed = ""
