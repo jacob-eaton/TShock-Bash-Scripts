@@ -66,7 +66,6 @@ Update_Service() {
 
 # Gets variables for creating a new world
 create_world() {
-Print_Style "\nServer password (press enter for none): " "$CYAN"
   screen -Rd terraria -X stuff "n^M"
   printf "\e[36m\n%-10s %s\n\e[39m" "1" "Small"
   printf "\e[36m%-10s %s\n\e[39m" "2" "Medium"
@@ -160,7 +159,8 @@ fi
   worldFiles=`find ./*.wld -maxdepth 1 -type f -not -path '*/\.*' | sed 's/^\.\///g' | sort`
 } &> /dev/null
 
-Print_Style "\nConfigure server settings:" "$MAGENTA"
+echo ""
+Print_Style "Configuring server settings..." "$YELLOW"
 if [ -z "$worldFiles" ]; then # If no worlds files exist
   Print_Style "No worlds found, creating one." "$YELLOW"
   create_world
