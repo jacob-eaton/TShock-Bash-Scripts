@@ -66,29 +66,30 @@ Update_Service() {
 
 # Gets variables for creating a new world
 create_world() {
+Print_Style "\nServer password (press enter for none): " "$CYAN"
   screen -Rd terraria -X stuff "n^M"
   printf "\n%-10s %s\n" "1" "Small"
   printf "%-10s %s\n" "2" "Medium"
   printf "%-10s %s\n" "3" "Large"
-  echo -n "Choose size: "
+  Print_Style "Choose size: " "$CYAN"
   read size
   screen -Rd terraria -X stuff "$size^M"
   printf "\n%-10s %s\n" "1" "Classic"
   printf "%-10s %s\n" "2" "Expert"
   printf "%-10s %s\n" "3" "Master"
   printf "%-10s %s\n" "4" "Journey"
-  echo -n "Choose difficulty: "
+  Print_Style "Choose difficulty: " "$CYAN"
   read difficulty
   screen -Rd terraria -X stuff "$difficulty^M"
   printf "\n%-10s %s\n" "1" "Random"
   printf "%-10s %s\n" "2" "Corrupt"
   printf "%-10s %s\n" "3" "Crimson"
-  printf "Choose world evil: "
+  Print_Style "Choose world evil: " "$CYAN"
   read worldEvil
   screen -Rd terraria -X stuff "worldEvil^M"
-  printf "\nEnter world name: "
+  Print_Style "\nEnter world name: " "$CYAN"
   read worldName
-  printf "\nEnter Seed (Leave blank for random): "
+  Print_Style "\nEnter Seed (Leave blank for random): " "$CYAN"
   read answer
   if [ -z $answer ]; then
     seed = ""
@@ -159,8 +160,9 @@ fi
   worldFiles=`find ./*.wld -maxdepth 1 -type f -not -path '*/\.*' | sed 's/^\.\///g' | sort`
 } &> /dev/null
 
+Print_Style "\nConfigure server settings:" "$CYAN"
 if [ -z "$worldFiles" ]; then # If no worlds files exist
-  echo "No worlds found, creating one."
+  Print_Style "No worlds found, creating one." "$YELLOW"
   create_world
 else # If world files exist
   cnt=0
@@ -171,7 +173,7 @@ else # If world files exist
     let "cnt+=1"
   done
   printf "%-10s %s\n" "n" "New World"
-  printf "Choose world: "
+  Print_Style "Choose world: " "$CYAN"
   read worldSelect
   sed -i "s:worldSelect:$worldSelect:g" start.sh
   if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
@@ -179,7 +181,7 @@ else # If world files exist
   else
     screen -Rd terraria -X stuff "$worldSelect^M"
   fi
-  printf "\nMax players (press enter for 16): "
+  Print_Style "\nMax players (press enter for 16): " "$CYAN"
   read answer 
   if [ -z $answer ]; then
     maxPlayers = ""
@@ -188,7 +190,7 @@ else # If world files exist
   fi
   sed -i "s:maxPlayers:$maxPlayers:g" start.sh
   screen -Rd terraria -X stuff "$maxPlayers^M"
-  printf "\nServer port (press enter for 7777): "
+  Print_Style "\nServer port (press enter for 7777): " "$CYAN"
   read answer
   if [ -z $answer ]; then
     serverPort = ""
@@ -197,11 +199,11 @@ else # If world files exist
   fi
   sed -i "s:serverPort:$serverPort:g" start.sh
   screen -Rd terraria -X stuff "$serverPort^M"
-  printf "\nAutomatically forward port? (y/n): "
+  Print_Style "\nAutomatically forward port? (y/n): " "$CYAN"
   read autoForward
   sed -i "s:autoForward:$autoForward:g" start.sh
   screen -Rd terraria -X stuff "$autoForward^M"
-  printf "\nServer password (press enter for none): "
+  Print_Style "\nServer password (press enter for none): " "$CYAN"
   read answer
   if [ -z $answer ]; then
     serverPassword = ""
