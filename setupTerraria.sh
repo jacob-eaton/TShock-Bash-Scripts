@@ -94,9 +94,9 @@ create_world() {
   echo -n "Enter Seed (Leave blank for random): "
   read answer
   if [ -z $answer ]; then
-    seed = ""
+    seed=""
   else
-    seed = $answer
+    seed=$answer
   fi
   screen -Rd terraria -X stuff "$seed^M"
 }
@@ -194,9 +194,9 @@ Print_Style "Select server settings..." "$YELLOW"
 echo -n "Max players: "
 read answer 
 if [ -z $answer ]; then
-  maxPlayers = ""
+  maxPlayers=""
 else
-  maxPlayers = $answer
+  maxPlayers=$answer
 fi
 sed -i "s:maxPlayers:$maxPlayers:g" start.sh
 screen -Rd terraria -X stuff "$maxPlayers^M"
@@ -204,9 +204,9 @@ echo ""
 echo -n "Server port (press enter for 7777): "
 read answer
 if [ -z $answer ]; then
-  serverPort = ""
+  serverPort=""
 else
-  serverPort = $answer
+  serverPort=$answer
 fi
 sed -i "s:serverPort:$serverPort:g" start.sh
 screen -Rd terraria -X stuff "$serverPort^M"
@@ -219,9 +219,9 @@ echo ""
 echo -n "Server password (press enter for none): "
 read answer
 if [ -z $answer ]; then
-  serverPassword = ""
+  serverPassword=""
 else
-  serverPassword = $answer
+  serverPassword=$answer
 fi
 sed -i "s:serverPassword:$serverPassword:g" start.sh
 screen -Rd terraria -X stuff "serverPassword^M"
