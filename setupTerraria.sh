@@ -67,7 +67,7 @@ Update_Service() {
 # Gets variables for creating a new world
 create_world() {
   screen -Rd terraria -X stuff "n^M"
-  printf "\e[36m\n%-10s %s\n\e[39m" "1" "Small"
+  printf "\e[36m%-10s %s\n\e[39m" "1" "Small"
   printf "\e[36m%-10s %s\n\e[39m" "2" "Medium"
   printf "\e[36m%-10s %s\n\e[39m" "3" "Large"
   echo -n "Choose size: "
@@ -166,9 +166,9 @@ fi
 cd "$DirName/terraria"
 
 echo ""
-Print_Style "Configuring server settings..." "$YELLOW"
 if [ -z "$worldFiles" ]; then # If no worlds files exist
   Print_Style "No worlds found, creating one." "$YELLOW"
+  Print_Style "Select world settings..." "$YELLOW"
   create_world
 else # If world files exist
   cnt=1
@@ -190,6 +190,7 @@ else # If world files exist
 fi
 
 echo ""
+Print_Style "Select server settings..." "$YELLOW"
 echo -n "Max players: "
 read answer 
 if [ -z $answer ]; then
