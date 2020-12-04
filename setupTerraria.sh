@@ -67,20 +67,20 @@ Update_Service() {
 # Gets variables for creating a new world
 create_world() {
   screen -Rd terraria -X stuff "n^M"
-  printf "%b%-10s %s\n" "$CYAN" "1" "Small"
+  printf "%b\n%-10s %s\n" "$CYAN" "1" "Small"
   printf "%-10s %s\n" "2" "Medium"
   printf "%-10s %s\n%b" "3" "Large" "$NORMAL"
   echo -n "Choose size: "
   read size
   screen -Rd terraria -X stuff "$size^M"
-  printf "%b%-10s %s\n" "$CYAN" "1" "Classic"
+  printf "%b\n%-10s %s\n" "$CYAN" "1" "Classic"
   printf "%-10s %s\n" "2" "Expert"
   printf "%-10s %s\n" "3" "Master"
   printf "%-10s %s\n%b" "4" "Journey" "$NORMAL"
   echo -n "Choose difficulty: "
   read difficulty
   screen -Rd terraria -X stuff "$difficulty^M"
-  printf "%b%-10s %s\n" "1" "$CYAN" "Random"
+  printf "%b\n%-10s %s\n" "$CYAN" "1" "Random"
   printf "%-10s %s\n" "2" "Corrupt"
   printf "%-10s %s\n%b" "3" "Crimson" "$NORMAL"
   echo -n "Choose world evil: "
@@ -102,7 +102,7 @@ create_world() {
   
   echo ""
   Print_Style "Waiting 60 seconds for the world to generate." "$MAGENTA"
-  Print_style "You may have to enter some settings twice if the world does not fully generate in this time." "$MAGENTA"
+  Print_Style "You may have to enter some settings twice if the world does not fully generate in this time." "$MAGENTA"
   spin='-\|/'
   printf "4s%%" "0"
   j=0
@@ -190,10 +190,10 @@ else # If world files exist
   echo ""
   for eachFile in $worldFiles
   do
-    printf "%b%-10s %s%b" "$CYAN" $cnt $eachFile "$NORMAL"
+    printf "%b%-10s %s\n" "$CYAN" $cnt $eachFile
     let "cnt+=1"
   done
-  printf "%b%-10s %s%b" "$CYAN" "n" "New World" "$NORMAL"
+  printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
   echo -n "Choose world: "
   read worldSelect
   sed -i "s:worldSelect:$worldSelect:g" start.sh
