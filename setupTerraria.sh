@@ -109,10 +109,12 @@ create_world() {
   for i in {1..120}
   do
     j=$(( (j+1) %4 ))
-    percent=$(((i+1) / 2))
+    seconds=$(( (i+1) / 2 ))
+    percent=$(( ($seconds * 100) / 60))
     printf "\r%4s%% ${spin:$j:1}" "$percent"
     sleep 0.5
   done
+  echo ""
   Print_Style "Complete." "$GREEN"
 }
 #################################################################################################
