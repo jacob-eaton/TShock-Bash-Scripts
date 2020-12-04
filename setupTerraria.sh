@@ -187,10 +187,9 @@ if [ -z "$worldFiles" ]; then # If no worlds files exist
   create_world
 else # If world files exist
   cnt=1
-  echo ""
   for eachFile in $worldFiles
   do
-    printf "%b%-10s %s\n" "$CYAN" $cnt $eachFile
+    printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
     let "cnt+=1"
   done
   printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
