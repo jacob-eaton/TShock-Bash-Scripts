@@ -184,38 +184,43 @@ else # If world files exist
   else
     screen -Rd terraria -X stuff "$worldSelect^M"
   fi
-  echo -n "\nMax players (press enter for 16): "
-  read answer 
-  if [ -z $answer ]; then
-    maxPlayers = ""
-  else
-    maxPlayers = $answer
-  fi
-  sed -i "s:maxPlayers:$maxPlayers:g" start.sh
-  screen -Rd terraria -X stuff "$maxPlayers^M"
-  echo -n "\nServer port (press enter for 7777): "
-  read answer
-  if [ -z $answer ]; then
-    serverPort = ""
-  else
-    serverPort = $answer
-  fi
-  sed -i "s:serverPort:$serverPort:g" start.sh
-  screen -Rd terraria -X stuff "$serverPort^M"
-  echo -n "\nAutomatically forward port? (y/n): "
-  read autoForward
-  sed -i "s:autoForward:$autoForward:g" start.sh
-  screen -Rd terraria -X stuff "$autoForward^M"
-  echo -n "\nServer password (press enter for none): "
-  read answer
-  if [ -z $answer ]; then
-    serverPassword = ""
-  else
-    serverPassword = $answer
-  fi
-  sed -i "s:serverPassword:$serverPassword:g" start.sh
-  screen -Rd terraria -X stuff "serverPassword^M"
 fi
+
+echo ""
+echo -n "Max players (press enter for 16): "
+read answer 
+if [ -z $answer ]; then
+  maxPlayers = ""
+else
+  maxPlayers = $answer
+fi
+sed -i "s:maxPlayers:$maxPlayers:g" start.sh
+screen -Rd terraria -X stuff "$maxPlayers^M"
+echo ""
+echo -n "Server port (press enter for 7777): "
+read answer
+if [ -z $answer ]; then
+  serverPort = ""
+else
+  serverPort = $answer
+fi
+sed -i "s:serverPort:$serverPort:g" start.sh
+screen -Rd terraria -X stuff "$serverPort^M"
+echo ""
+echo -n "Automatically forward port? (y/n): "
+read autoForward
+sed -i "s:autoForward:$autoForward:g" start.sh
+screen -Rd terraria -X stuff "$autoForward^M"
+echo ""
+echo -n "Server password (press enter for none): "
+read answer
+if [ -z $answer ]; then
+  serverPassword = ""
+else
+  serverPassword = $answer
+fi
+sed -i "s:serverPassword:$serverPassword:g" start.sh
+screen -Rd terraria -X stuff "serverPassword^M"
 
 # Finished!
 Print_Style "Setup is complete. Going to Terraria server..." "$GREEN"
