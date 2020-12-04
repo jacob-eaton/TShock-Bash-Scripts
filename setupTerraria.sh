@@ -187,22 +187,22 @@ if [ -z "$worldFiles" ]; then # If no worlds files exist
   Print_Style "No worlds found, creating one." "$YELLOW"
   Print_Style "Enter world settings..." "$YELLOW"
   create_world
-else # If world files exist
-  cnt=1
-  for eachFile in $worldFiles
-  do
-    printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
-    let "cnt+=1"
-  done
-  printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
-  echo -n "Choose world: "
-  read worldSelect
-  sed -i "s:worldSelect:$worldSelect:g" start.sh
-  if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
-    create_world
-  else
-    screen -Rd terraria -X stuff "$worldSelect^M"
-  fi
+fi
+
+cnt=1
+for eachFile in $worldFiles
+do
+  printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
+  let "cnt+=1"
+done
+printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
+echo -n "Choose world: "
+read worldSelect
+sed -i "s:worldSelect:$worldSelect:g" start.sh
+if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
+  create_world
+else
+  screen -Rd terraria -X stuff "$worldSelect^M"
 fi
 
 echo ""
