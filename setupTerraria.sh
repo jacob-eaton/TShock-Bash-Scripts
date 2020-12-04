@@ -129,7 +129,7 @@ UserName=$(whoami)
 # Retrieve latest release of TShock
 Print_Style "Getting latest TShock release..." "$YELLOW"
 wget -O tshock.zip https://github.com/NyxStudios/TShock/releases/download/v$Version/tshock_$Version.zip
-unzip tshock.zip
+unzip tshock.zip -y
 rm tshock.zip
 
 # Download Terraria server scripts
@@ -168,7 +168,7 @@ if [ -z "$worldFiles" ]; then # If no worlds files exist
   Print_Style "No worlds found, creating one." "$YELLOW"
   create_world
 else # If world files exist
-  cnt=0
+  cnt=1
   echo ""
   for eachFile in $worldFiles
   do
@@ -187,7 +187,7 @@ else # If world files exist
 fi
 
 echo ""
-echo -n "Max players (press enter for 16): "
+echo -n "Max players: "
 read answer 
 if [ -z $answer ]; then
   maxPlayers = ""
