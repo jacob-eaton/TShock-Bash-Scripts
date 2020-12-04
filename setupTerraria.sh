@@ -67,22 +67,22 @@ Update_Service() {
 # Gets variables for creating a new world
 create_world() {
   screen -Rd terraria -X stuff "n^M"
-  printf "\e[36m%-10s %s\n\e[39m" "1" "Small"
-  printf "\e[36m%-10s %s\n\e[39m" "2" "Medium"
-  printf "\e[36m%-10s %s\n\e[39m" "3" "Large"
+  printf "%b%-10s %s\n" "$CYAN" "1" "Small"
+  printf "%-10s %s\n" "2" "Medium"
+  printf "%-10s %s\n%b" "3" "Large" "$NORMAL"
   echo -n "Choose size: "
   read size
   screen -Rd terraria -X stuff "$size^M"
-  printf "\e[36m\n%-10s %s\n\e[39m" "1" "Classic"
-  printf "\e[36m%-10s %s\n\e[39m" "2" "Expert"
-  printf "\e[36m%-10s %s\n\e[39m" "3" "Master"
-  printf "\e[36m%-10s %s\n\e[39m" "4" "Journey"
+  printf "%b%-10s %s\n" "$CYAN" "1" "Classic"
+  printf "%-10s %s\n" "2" "Expert"
+  printf "%-10s %s\n" "3" "Master"
+  printf "%-10s %s\n%b" "4" "Journey" "$NORMAL"
   echo -n "Choose difficulty: "
   read difficulty
   screen -Rd terraria -X stuff "$difficulty^M"
-  printf "\e[36m\n%-10s %s\n\e[39m" "1" "Random"
-  printf "\e[36m%-10s %s\n\e[39m" "2" "Corrupt"
-  printf "\e[36m%-10s %s\n\e[39m" "3" "Crimson"
+  printf "%b%-10s %s\n" "1" "$CYAN" "Random"
+  printf "%-10s %s\n" "2" "Corrupt"
+  printf "%-10s %s\n%b" "3" "Crimson" "$NORMAL"
   echo -n "Choose world evil: "
   read worldEvil
   screen -Rd terraria -X stuff "$worldEvil^M"
@@ -102,13 +102,16 @@ create_world() {
   
   echo ""
   Print_Style "Waiting 60 seconds for the world to generate." "$MAGENTA"
-  Print_style "If the world does not fully generate in this time, you may have to enter some settings twice." "$MAGENTA"
-  printf "%4s\n" "0%"
-  for i in {1..10}
+  Print_style "You may have to enter some settings twice if the world does not fully generate in this time." "$MAGENTA"
+  spin='-\|/'
+  printf "4s%%" "0"
+  j=0
+  for i in {1..120}
   do
-    percent=$(($i * 10))
-    sleep 6
-    printf "%4s\n" "$percent%"
+    j=$(( (j+1) %4 ))
+    percent=$(((i+1) / 2))
+    printf "\r%4s%% ${spin:$j:1}" "$percent"
+    sleep 0.5
   done
   Print_Style "Complete." "$GREEN"
 }
@@ -187,10 +190,10 @@ else # If world files exist
   echo ""
   for eachFile in $worldFiles
   do
-    printf "\e[36m%-10s %s\n\e[39m" $cnt $eachFile
+    printf "%b%-10s %s%b" "$CYAN" $cnt $eachFile "$NORMAL"
     let "cnt+=1"
   done
-  printf "\e[36m%-10s %s\n\e[39m" "n" "New World"
+  printf "%b%-10s %s%b" "$CYAN" "n" "New World" "$NORMAL"
   echo -n "Choose world: "
   read worldSelect
   sed -i "s:worldSelect:$worldSelect:g" start.sh
