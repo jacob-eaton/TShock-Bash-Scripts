@@ -99,6 +99,18 @@ create_world() {
     seed=$answer
   fi
   screen -Rd terraria -X stuff "$seed^M"
+  
+  echo ""
+  Print_Style "Waiting 60 seconds for the world to generate." "$MAGENTA"
+  Print_style "If the world does not fully generate in this time, you may have to enter some settings twice." "$MAGENTA"
+  printf "%4s\n" "0%"
+  for i in {1..10}
+  do
+    percent=$(($i * 10))
+    sleep 6
+    printf "%4s\n" "$percent%"
+  done
+  Print_Style "Complete." "$GREEN"
 }
 #################################################################################################
 
@@ -168,7 +180,7 @@ cd "$DirName/terraria"
 echo ""
 if [ -z "$worldFiles" ]; then # If no worlds files exist
   Print_Style "No worlds found, creating one." "$YELLOW"
-  Print_Style "Select world settings..." "$YELLOW"
+  Print_Style "Enter world settings..." "$YELLOW"
   create_world
 else # If world files exist
   cnt=1
@@ -190,7 +202,7 @@ else # If world files exist
 fi
 
 echo ""
-Print_Style "Select server settings..." "$YELLOW"
+Print_Style "Enter server settings..." "$YELLOW"
 echo -n "Max players: "
 read answer 
 if [ -z $answer ]; then
@@ -224,6 +236,7 @@ else
   serverPassword=$answer
 fi
 sed -i "s:serverPassword:$serverPassword:g" start.sh
+
 screen -Rd terraria -X stuff "serverPassword^M"
 
 # Finished!
