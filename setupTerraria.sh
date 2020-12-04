@@ -163,7 +163,7 @@ fi
 } &> /dev/null
 
 # Return to Terraria directory
-cd ~/terraria
+cd $DirName
 
 echo ""
 Print_Style "Configuring server settings..." "$YELLOW"
