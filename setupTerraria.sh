@@ -162,6 +162,9 @@ fi
   worldFiles=`find ./*.wld -maxdepth 1 -type f -not -path '*/\.*' | sed 's/^\.\///g' | sort`
 } &> /dev/null
 
+# Return to Terraria directory
+cd ~/terraria
+
 echo ""
 Print_Style "Configuring server settings..." "$YELLOW"
 if [ -z "$worldFiles" ]; then # If no worlds files exist
