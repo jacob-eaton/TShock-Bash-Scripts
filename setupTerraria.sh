@@ -3,7 +3,7 @@
 # Based on a script by James Chambers: https://github.com/TheRemote/RaspberryPiMinecraft
 
 # TShock server version
-Version="4.3.26"
+Version="4.4.0-pre15"
 
 # Terminal colors
 BLACK=$(tput setaf 0)
