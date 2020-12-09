@@ -175,9 +175,10 @@ if [ -z "$worldFiles" ]; then # If no worlds files exist
   screen -Rd terraria -X stuff "1^M"
 else
   cnt=1
+  echo ""
   for eachFile in $worldFiles
   do
-    printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
+    printf "%b%-10s %s\n" "$CYAN" $cnt $eachFile
     let "cnt+=1"
   done
   printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
