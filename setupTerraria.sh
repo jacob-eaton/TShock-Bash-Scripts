@@ -101,7 +101,6 @@ create_world() {
     seed=$answer
   fi
   screen -Rd terraria -X stuff "$seed^M"
-  screen -Rd terraria -X stuff "1^M"
 }
 #################################################################################################
 
@@ -173,22 +172,32 @@ if [ -z "$worldFiles" ]; then # If no worlds files exist
   Print_Style "No worlds found, creating one." "$YELLOW"
   Print_Style "Enter world settings..." "$YELLOW"
   create_world
+  screen -Rd terraria -X stuff "1^M"
 else
-  cnt=1
-  for eachFile in $worldFiles
+  while :
   do
-    printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
-    let "cnt+=1"
+    cnt=1
+    for eachFile in $worldFiles
+    do
+      printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
+      let "cnt+=1"
+    done
+    printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
+    echo -n "Choose world: "
+    read worldSelect
+    sed -i "s:worldSelect:$worldSelect:g" start.sh
+    if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
+      create_world
+      # Update world files
+      {
+        cd ~/.local/share/Terraria/Worlds/
+        worldFiles=`find ./*.wld -maxdepth 1 -type f -not -path '*/\.*' | sed 's/^\.\///g' | sort`
+      } &> /dev/null
+    else
+      screen -Rd terraria -X stuff "$worldSelect^M"
+      break
+    fi
   done
-  printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
-  echo -n "Choose world: "
-  read worldSelect
-  sed -i "s:worldSelect:$worldSelect:g" start.sh
-  if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
-    create_world
-  else
-    screen -Rd terraria -X stuff "$worldSelect^M"
-  fi
 fi
 
 echo ""
@@ -230,6 +239,7 @@ sed -i "s:serverPassword:$serverPassword:g" start.sh
 screen -Rd terraria -X stuff "serverPassword^M"
 
 # Finished!
+echo ""
 Print_Style "Setup is complete. Going to Terraria server..." "$GREEN"
 screen -r terraria
 
