@@ -147,7 +147,7 @@ UserName=$(whoami)
 # Retrieve latest release of TShock
 Print_Style "Getting latest TShock release..." "$YELLOW"
 wget -O tshock.zip https://github.com/NyxStudios/TShock/releases/download/v$Version/$zipName.zip
-unzip -o tshock.zip
+unzip -o -j tshock.zip
 rm tshock.zip
 
 # Download Terraria server scripts
