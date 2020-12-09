@@ -101,22 +101,7 @@ create_world() {
     seed=$answer
   fi
   screen -Rd terraria -X stuff "$seed^M"
-  echo ""
-  Print_Style "Waiting 60 seconds for the world to generate." "$MAGENTA"
-  Print_Style "You may have to enter some settings twice if the world does not fully generate in this time." "$MAGENTA"
-  spin='-\|/'
-  printf "4s%%" "0"
-  j=0
-  for i in {1..120}
-  do
-    j=$(( (j+1) %4 ))
-    seconds=$(( (i+1) / 2 ))
-    percent=$(( ($seconds * 100) / 60))
-    printf "\r%4s%% ${spin:$j:1}" "$percent"
-    sleep 0.5
-  done
-  echo ""
-  Print_Style "Complete." "$GREEN"
+  screen -Rd terraria -X stuff "1^M"
 }
 #################################################################################################
 
@@ -188,27 +173,27 @@ if [ -z "$worldFiles" ]; then # If no worlds files exist
   Print_Style "No worlds found, creating one." "$YELLOW"
   Print_Style "Enter world settings..." "$YELLOW"
   create_world
-fi
-
-cnt=1
-for eachFile in $worldFiles
-do
-  printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
-  let "cnt+=1"
-done
-printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
-echo -n "Choose world: "
-read worldSelect
-sed -i "s:worldSelect:$worldSelect:g" start.sh
-if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
-  create_world
 else
-  screen -Rd terraria -X stuff "$worldSelect^M"
+  cnt=1
+  for eachFile in $worldFiles
+  do
+    printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
+    let "cnt+=1"
+  done
+  printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
+  echo -n "Choose world: "
+  read worldSelect
+  sed -i "s:worldSelect:$worldSelect:g" start.sh
+  if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
+    create_world
+  else
+    screen -Rd terraria -X stuff "$worldSelect^M"
+  fi
 fi
 
 echo ""
 Print_Style "Enter server settings..." "$YELLOW"
-echo -n "Max players: "
+echo -n "Max players (press enter for 16): "
 read answer 
 if [ -z $answer ]; then
   maxPlayers=""
