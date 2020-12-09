@@ -4,6 +4,7 @@
 
 # TShock server version
 Version="4.4.0-pre15"
+zipName="Tshock4.4.0_Pre15_Terraria1.4.1.2"
 
 # Terminal colors
 BLACK=$(tput setaf 0)
@@ -145,7 +146,7 @@ UserName=$(whoami)
 
 # Retrieve latest release of TShock
 Print_Style "Getting latest TShock release..." "$YELLOW"
-wget -O tshock.zip https://github.com/NyxStudios/TShock/releases/download/v$Version/tshock_$Version.zip
+wget -O tshock.zip https://github.com/NyxStudios/TShock/releases/download/v$Version/$zipName.zip
 unzip -o tshock.zip
 rm tshock.zip
 
