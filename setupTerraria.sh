@@ -174,30 +174,33 @@ if [ -z "$worldFiles" ]; then # If no worlds files exist
   create_world
   screen -Rd terraria -X stuff "1^M"
 else
-  while :
+  cnt=1
+  for eachFile in $worldFiles
   do
-    cnt=1
+    printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
+    let "cnt+=1"
+  done
+  printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
+  echo -n "Choose world: "
+  read worldSelect
+  sed -i "s:worldSelect:$worldSelect:g" start.sh
+  if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
+    create_world
+    newFiles=("$worldName.wld")
     for eachFile in $worldFiles
     do
-      printf "\n%b%-10s %s\n" "$CYAN" $cnt $eachFile
-      let "cnt+=1"
+      newFiles+=($eachFile)
     done
-    printf "%-10s %s\n%b" "n" "New World" "$NORMAL"
-    echo -n "Choose world: "
-    read worldSelect
-    sed -i "s:worldSelect:$worldSelect:g" start.sh
-    if [ "$worldSelect" != "${worldSelect#[Nn]}" ]; then
-      create_world
-      # Update world files
-      {
-        cd ~/.local/share/Terraria/Worlds/
-        worldFiles=`find ./*.wld -maxdepth 1 -type f -not -path '*/\.*' | sed 's/^\.\///g' | sort`
-      } &> /dev/null
-    else
-      screen -Rd terraria -X stuff "$worldSelect^M"
-      break
-    fi
-  done
+    newFiles=($(for each in ${newFiles[@]}; do echo $each; done | sort))
+
+    echo ${newFiles[0]}
+    for i in "${!newFiles[@]}"; do
+      if [[ "${newFiles[$i]}" = "anewWorld.txt" ]]; then
+        worldSelect=$(( $i + 1 ));
+      fi
+    done
+  fi
+  screen -Rd terraria -X stuff "$worldSelect^M"
 fi
 
 echo ""
