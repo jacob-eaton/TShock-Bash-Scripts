@@ -193,10 +193,9 @@ else
       newFiles+=($eachFile)
     done
     newFiles=($(for each in ${newFiles[@]}; do echo $each; done | sort))
-
     echo ${newFiles[0]}
     for i in "${!newFiles[@]}"; do
-      if [[ "${newFiles[$i]}" = "$worldFile.wld" ]]; then
+      if [[ "${newFiles[$i]}" = "$worldName.wld" ]]; then
         worldSelect=$(( $i + 1 ));
       fi
     done
