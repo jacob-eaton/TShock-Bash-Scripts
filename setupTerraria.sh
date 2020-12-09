@@ -81,12 +81,13 @@ create_world() {
   echo -n "Choose difficulty: "
   read difficulty
   screen -Rd terraria -X stuff "$difficulty^M"
-  printf "%b\n%-10s %s\n" "$CYAN" "1" "Random"
-  printf "%-10s %s\n" "2" "Corrupt"
-  printf "%-10s %s\n%b" "3" "Crimson" "$NORMAL"
-  echo -n "Choose world evil: "
-  read worldEvil
-  screen -Rd terraria -X stuff "$worldEvil^M"
+  #The latest TShock does not appear to ask for world evil, not sure if this is a bug...
+  #printf "%b\n%-10s %s\n" "$CYAN" "1" "Random"
+  #printf "%-10s %s\n" "2" "Corrupt"
+  #printf "%-10s %s\n%b" "3" "Crimson" "$NORMAL"
+  #echo -n "Choose world evil: "
+  #read worldEvil
+  #screen -Rd terraria -X stuff "$worldEvil^M"
   echo ""
   echo -n "Enter world name: "
   read worldName
@@ -100,7 +101,6 @@ create_world() {
     seed=$answer
   fi
   screen -Rd terraria -X stuff "$seed^M"
-  
   echo ""
   Print_Style "Waiting 60 seconds for the world to generate." "$MAGENTA"
   Print_Style "You may have to enter some settings twice if the world does not fully generate in this time." "$MAGENTA"
