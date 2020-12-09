@@ -11,9 +11,9 @@ chmod +x setupTerraria.sh
 If a newer version of TShock has been released than TShock 4.4.0 Pre-release 15, nano setupTerraria.sh and change the following lines:
 
 
-Version="4.4.0-pre15"
+**Version**="4.4.0-pre15"
 
-zipName="Tshock4.4.0_Pre15_Terraria1.4.1.2"
+**zipName**="Tshock4.4.0_Pre15_Terraria1.4.1.2"
 
 ## Tested Distributions
 - Ubuntu Server 20.04.1
