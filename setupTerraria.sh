@@ -1,5 +1,5 @@
 #!/bin/bash
-# Jacob Eaton - Dec 3rd 2020
+# Jacob Eaton - Dec 8th 2020
 # Based on a script by James Chambers: https://github.com/TheRemote/RaspberryPiMinecraft
 
 # TShock server version
@@ -196,7 +196,7 @@ else
 
     echo ${newFiles[0]}
     for i in "${!newFiles[@]}"; do
-      if [[ "${newFiles[$i]}" = "anewWorld.txt" ]]; then
+      if [[ "${newFiles[$i]}" = "$worldFile.wld" ]]; then
         worldSelect=$(( $i + 1 ));
       fi
     done
@@ -207,7 +207,7 @@ fi
 echo ""
 Print_Style "Enter server settings..." "$YELLOW"
 echo -n "Max players (press enter for 16): "
-read answer 
+read answer
 if [ -z $answer ]; then
   maxPlayers=""
 else
