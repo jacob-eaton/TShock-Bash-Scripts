@@ -173,6 +173,7 @@ if [ -z "$worldFiles" ]; then # If no worlds files exist
   Print_Style "Enter world settings..." "$YELLOW"
   create_world
   screen -Rd terraria -X stuff "1^M"
+  worldSelect=1
 else
   cnt=1
   echo ""
@@ -202,6 +203,7 @@ else
   fi
   screen -Rd terraria -X stuff "$worldSelect^M"
 fi
+sed -i "s:worldSelect:$worldSelect:g" start.sh
 
 echo ""
 Print_Style "Enter server settings..." "$YELLOW"
