@@ -17,3 +17,4 @@ If a newer version of TShock has been released than TShock 4.4.0 Pre-release 15,
 
 ## Tested Distributions
 - Ubuntu Server 20.04.1
+- Raspian Lite Buster
