@@ -11,9 +11,6 @@ fi
 
 # Stop the server
 echo "Preparing to stop Terraria server..."
-screen -Rd terraria -X stuff "say Stopping the server in 5 minutes...^M"
-echo "Stopping in 5 minutes."
-sleep 240;
 screen -Rd terraria -X stuff "say Stopping the server in 1 minute...^M"
 echo "Stopping in 1 minute."
 sleep 50;
