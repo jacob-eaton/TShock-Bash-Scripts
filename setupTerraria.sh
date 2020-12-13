@@ -241,7 +241,7 @@ else
 fi
 sed -i "s:serverPassword:$serverPassword:g" start.sh
 
-screen -Rd terraria -X stuff "serverPassword^M"
+screen -Rd terraria -X stuff "$serverPassword^M"
 
 # Finished!
 echo ""
