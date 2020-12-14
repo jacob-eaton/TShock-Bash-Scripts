@@ -1,5 +1,5 @@
 #!/bin/bash
-# Jacob Eaton - Dec 8th 2020
+# Jacob Eaton - Dec 13th 2020
 # Based on a script by James Chambers: https://github.com/TheRemote/RaspberryPiMinecraft
 
 # TShock server version
