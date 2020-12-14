@@ -3,7 +3,7 @@ Description=terraria server service
 After=network-online.target
 
 [Service]
-User=nuc
+User=replace
 WorkingDirectory=/dirname/terraria
 Type=forking
 ExecStart=/bin/bash /dirname/terraria/start.sh
