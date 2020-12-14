@@ -4,10 +4,10 @@ After=network-online.target
 
 [Service]
 User=nuc
-WorkingDirectory=/home/nuc/terraria
+WorkingDirectory=/dirname/terraria
 Type=forking
-ExecStart=/bin/bash /home/nuc/terraria/start.sh
-ExecStop=/bin/bash /home/nuc/terraria/stop.sh
+ExecStart=/bin/bash /dirname/terraria/start.sh
+ExecStop=/bin/bash /dirname/terraria/stop.sh
 GuessMainPID=no
 TimeoutStartSec=600
 
