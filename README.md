@@ -1,3 +1,5 @@
+These scripts were written about on my blog [here](https://www.jacobeaton.com/2020/12/13/Linux-TShock-Server.html).
+
 ## Installation Instructions
 To get started, type:
 
